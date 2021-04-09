@@ -5,11 +5,11 @@
 # pull official base image
 FROM python:3.9.1-slim-buster as builder
 
-# set working directory
+# set work directory
 WORKDIR /usr/src/app
 
 # set environment variables
-ENV PYTHONDONTWRITEBYECODE = 1
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
@@ -24,7 +24,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requir
 
 # lint
 COPY . .
-RUN pip install black==20.8b1 flake8==3.8.4 isort==5.7.0
+RUN pip install black==20.8b1 flake8===3.8.4 isort==5.7.0
 RUN flake8 .
 RUN black . --check --exclude=migrations
 RUN isort . --check-only
@@ -41,10 +41,10 @@ FROM python:3.9.1-slim-buster
 WORKDIR /usr/src/app
 
 # set environment variables
-# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG 0
+# updated
 ARG SECRET_KEY
 ENV SECRET_KEY $SECRET_KEY
 ENV DJANGO_ALLOWED_HOSTS .herokuapp.com
