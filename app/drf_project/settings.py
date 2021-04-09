@@ -44,10 +44,11 @@ if not DEBUG:
     SECURE_REFERRER_POLICY = "same-origin"
 
 # Disable Browsable API
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"}
 if not DEBUG:
-    REST_FRAMEWORK = {
-        "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",)
-    }
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
+        "rest_framework.renderers.JSONRenderer",
+    )
 
 
 # Application definition
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # new start
     "rest_framework",
+    "drf_yasg",
     "movies",
     # new end
 ]
@@ -161,3 +163,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Custom user
 AUTH_USER_MODEL = "movies.CustomUser"
+
+# Swagger
+SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False}
